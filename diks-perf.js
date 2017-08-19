@@ -2,7 +2,7 @@
 
 const spawn = require("child_process").spawn;
 
-const child = spawn('path/to/bin', ['options']);
+const child = spawn('/usr/bin/fio', ['--runtime', '60', 'fio_read.ini']);
 child.stdout.on("data", (data) => { 
   console.log("out: " + data);
 });
