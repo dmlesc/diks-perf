@@ -3,10 +3,14 @@
 const fs = require('fs');
 const spawn = require("child_process").spawn;
 
-var sec = '5';
 var sec = '60';
-
 var configs = [
+  'r.ini',
+  'w.ini',
+  'rw.ini',
+  'r.ini',
+  'w.ini',
+  'rw.ini',
   'r.ini',
   'w.ini',
   'rw.ini'

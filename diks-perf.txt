@@ -1,3 +1,4 @@
+man fio
    --output=filename
           Write output to filename.
 
@@ -9,3 +10,32 @@
 
           
 fio --output=out --output-format=json --runtime=10 r.ini
+
+
+wipefs -a /dev/sda
+fdisk /dev/sda
+mkfs.ext /dev/sda
+mount /dev/sda /mnt/test
+chown -R dml:dml /mnt/test
+
+node run.js
+
+apt install mdadm
+mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sda /dev/sdb
+mkfs.ext4 -F /dev/md0
+mkdir -p /mnt/test
+mount /dev/md0 /mnt/test
+
+cat /proc/mdstat
+node run.js
+
+umount /mnt/test
+mdadm --stop /dev/md0
+mdadm --zero-superblock /dev/sda-b
+wipefs -a /dev/sda-b
+
+mdadm --create --verbose /dev/md0 --level=0 --raid-devices=3 /dev/sda /dev/sdb /dev/sdc
+mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sda /dev/sdb /dev/sdc
+  # wait for array to build (88 min)
+
+
