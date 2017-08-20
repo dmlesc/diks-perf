@@ -1,0 +1,19 @@
+{
+  "name": "diks-perf",
+  "version": "1.0.0",
+  "description": "test your diks performance",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmlesc/diks-perf.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmlesc/diks-perf/issues"
+  },
+  "homepage": "https://github.com/dmlesc/diks-perf#readme"
+}

@@ -1,0 +1,11 @@
+   --output=filename
+          Write output to filename.
+
+   --output-format=format
+          Set the reporting format to normal, terse, or json.
+
+   --runtime=runtime
+          Limit run time to runtime seconds.
+
+          
+fio --output=out --output-format=json --runtime=10 r.ini
