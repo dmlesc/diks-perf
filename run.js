@@ -18,7 +18,7 @@ var configs = [
 
 function runJob(config) {
   var outfile = config + '.json';
-  const child = spawn('/usr/bin/fio', ['--runtime', sec, '--output', outfile, '--output-format=json', config]);
+  const child = spawn('/usr/bin/fio', ['--runtime', sec, '--output', outfile, '--output-format=json', '--direct=0', config]);
   child.stdin.end();
   child.stdout.on('data', data => { console.log(data); });
   child.stderr.on('data', data => { console.log('err: ' + data); });

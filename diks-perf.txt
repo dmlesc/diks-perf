@@ -1,3 +1,13 @@
+apt install curl
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+apt install -y nodejs
+apt install fio
+apt install smartmontools --no-install-recommends
+
+git clone https://github.com/dmlesc/diks-perf.git
+cd diks-perf
+node run.js
+
 man fio
    --output=filename
           Write output to filename.
@@ -12,19 +22,24 @@ man fio
 fio --output=out --output-format=json --runtime=10 r.ini
 
 
+fdisk -l |grep dev
+smartctl 
+
 wipefs -a /dev/sda
 fdisk /dev/sda
-mkfs.ext /dev/sda
-mount /dev/sda /mnt/test
-chown -R dml:dml /mnt/test
+  n, enter, enter, enter, enter, enter, w
+mkfs.ext4 -F /dev/sda1
+mkdir -p /mnt/test
+mount /dev/sda1 /mnt/test
 
 node run.js
 
 apt install mdadm
 mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sda /dev/sdb
-mkfs.ext4 -F /dev/md0
-mkdir -p /mnt/test
-mount /dev/md0 /mnt/test
+wipefs -a /dev/md0
+fdisk /dev/md0
+mkfs.ext4 -F /dev/md0p1
+mount /dev/md0p1 /mnt/test
 
 cat /proc/mdstat
 node run.js
@@ -38,4 +53,20 @@ mdadm --create --verbose /dev/md0 --level=0 --raid-devices=3 /dev/sda /dev/sdb /
 mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sda /dev/sdb /dev/sdc
   # wait for array to build (88 min)
 
+
+apt install zfsutils-linux
+zpool list
+zpool status
+zfs get compression
+zfs list
+
+zpool create -f vol0 /dev/sda-c
+zfs create vol0/test
+zfs set mountpoint=/mnt/test vol0/test
+
+node run.js
+
+zpool destroy vol0
+
+zpool create -f vol0 /dev/sda /dev/sdb /dev/sdc
 
